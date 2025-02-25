@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="var" path="JC_TOOLS_HOME/lib/api_classic-3.2.0.jar"/>
+	<classpathentry kind="var" path="JC_TOOLS_HOME/lib/api_classic_annotations-3.2.0.jar"/>
+	<classpathentry kind="src" path=".gen">
+		<attributes>
+			<attribute name="ignore_optional_problems" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

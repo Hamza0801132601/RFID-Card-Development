@@ -1,0 +1,344 @@
+// converted by version  [v24.1]
+// on Wed Jan 15 20:37:57 WEST 2025
+
+.package ma/ensias/metier/security {
+	.aid 0x41:0x41:0x41:0x41:0x41:0x41;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x2 1.8;		//javacard/security
+		0xA0:0x0:0x0:0x0:0x62:0x2:0x1 1.8;		//javacardx/crypto
+	}
+
+	.constantPool {
+		// 0
+		staticMethodRef 0.0.0()V;		// java/lang/Object.<init>()V
+		// 1
+		.classRef 0.2;		// java/lang/Exception
+		// 2
+		virtualMethodRef 1.10.1()[B;		// getBuffer()[B
+		// 3
+		virtualMethodRef 1.10.6()S;		// setIncomingAndReceive()S
+		// 4
+		staticMethodRef 1.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 5
+		virtualMethodRef 1.9.2()B;		// getTriesRemaining()B
+		// 6
+		virtualMethodRef 1.9.1([BSB)Z;		// check([BSB)Z
+		// 7
+		virtualMethodRef 1.9.8([BSB)V;		// update([BSB)V
+		// 8
+		staticMethodRef 2.14.0(B)Ljavacard/security/RandomData;;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
+			.descriptor	Ljavacard/security/RandomData;	2.14;
+
+		// 9
+		virtualMethodRef 2.14.1([BSS)V;		// generateData([BSS)V
+		// 10
+		staticMethodRef 3.1.0(BZ)Ljavacardx/crypto/Cipher;;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+			.descriptor	Ljavacardx/crypto/Cipher;	3.1;
+
+		// 11
+		virtualMethodRef 3.1.4(Ljavacard/security/Key;B[BSS)V;		// init(Ljavacard/security/Key;B[BSS)V
+			.descriptor	Ljavacard/security/Key;	2.0;
+
+		// 12
+		virtualMethodRef 3.1.1([BSS[BS)S;		// doFinal([BSS[BS)S
+		// 13
+		staticMethodRef 1.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+		// 14
+		virtualMethodRef 1.10.8(SS)V;		// setOutgoingAndSend(SS)V
+		// 15
+		.classRef 2.20;		// javacard/security/AESKey
+	}
+
+	.class public AccessMetier 0 extends 0.0 {		// extends java/lang/Object
+
+		.fields {
+			private static final byte PIN_LENGTH = 4;		// B
+			private static final byte MAX_ATTEMPTS = 3;		// B
+			private static final short IV_LENGTH = 16;		// S
+			private static final short BLOCK_SIZE_AES = 16;		// S
+		}
+
+		.publicMethodTable 1 1 {
+			equals(Ljava/lang/Object;)Z 0;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method public <init>()V 0 {
+			.stack 1;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 0;		// java/lang/Object.<init>()V
+					return;
+		}
+
+		.method public static validatePin(Ljavacard/framework/APDU;Ljavacard/framework/OwnerPIN;)Z 1 {
+			.stack 4;
+			.locals 4;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+			.descriptor	Ljavacard/framework/OwnerPIN;	1.9;
+
+				L0:	aload_0;
+					invokevirtual 2;		// getBuffer()[B
+					astore_2;
+				L1:	aload_0;
+					invokevirtual 3;		// setIncomingAndReceive()S
+					s2b;
+					sstore_3;
+				L2:	sload_3;
+					sconst_4;
+					if_scmpeq L4;
+				L3:	sspush 26368;
+					invokestatic 4;		// javacard/framework/ISOException.throwIt(S)V
+				L4:	aload_1;
+					invokevirtual 5;		// getTriesRemaining()B
+					sconst_3;
+					if_scmpge L11;
+				L5:	sconst_0;
+					sstore 4;
+				L6:	goto L8;
+				L7:	sinc 4 1;
+				L8:	sload 4;
+					bspush 100;
+					if_scmplt L7;
+				L9:	goto L11;
+				L10:	astore 5;
+				L11:	aload_1;
+					aload_2;
+					sconst_5;
+					sconst_4;
+					invokevirtual 6;		// check([BSB)Z
+					sreturn;
+			.exceptionTable {
+				// start_block end_block handler_block catch_type_index
+				L5 L9 L10 1;
+			}
+		}
+
+		.method public static updatePin(Ljavacard/framework/APDU;Ljavacard/framework/OwnerPIN;)V 2 {
+			.stack 4;
+			.locals 2;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+			.descriptor	Ljavacard/framework/OwnerPIN;	1.9;
+
+				L0:	aload_0;
+					invokevirtual 2;		// getBuffer()[B
+					astore_2;
+				L1:	aload_0;
+					invokevirtual 3;		// setIncomingAndReceive()S
+					s2b;
+					sstore_3;
+				L2:	sload_3;
+					sconst_4;
+					if_scmpeq L4;
+				L3:	sspush 26368;
+					invokestatic 4;		// javacard/framework/ISOException.throwIt(S)V
+				L4:	aload_1;
+					aload_2;
+					sconst_5;
+					sconst_4;
+					invokevirtual 7;		// update([BSB)V
+					return;
+		}
+
+		.method public static authorizeAccess(Ljavacard/framework/APDU;Ljavacard/security/AESKey;Z)V 3 {
+			.stack 6;
+			.locals 6;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+			.descriptor	Ljavacard/security/AESKey;	2.20;
+
+				L0:	sload_2;
+					ifne L2;
+				L1:	sspush 27010;
+					invokestatic 4;		// javacard/framework/ISOException.throwIt(S)V
+				L2:	aload_0;
+					invokevirtual 2;		// getBuffer()[B
+					astore_3;
+				L3:	aload_0;
+					invokevirtual 3;		// setIncomingAndReceive()S
+					s2b;
+					sstore 4;
+				L4:	sload 4;
+					bspush 16;
+					srem;
+					ifeq L6;
+				L5:	sspush 26368;
+					invokestatic 4;		// javacard/framework/ISOException.throwIt(S)V
+				L6:	bspush 16;
+					newarray 11;
+					astore 5;
+				L7:	sconst_2;
+					invokestatic 8;		// javacard/security/RandomData.getInstance(B)Ljavacard/security/RandomData;
+					astore 6;
+				L8:	aload 6;
+					aload 5;
+					sconst_0;
+					bspush 16;
+					invokevirtual 9;		// generateData([BSS)V
+					bspush 13;
+					sconst_0;
+					invokestatic 10;		// javacardx/crypto/Cipher.getInstance(BZ)Ljavacardx/crypto/Cipher;
+					astore 7;
+				L9:	aload 7;
+					aload_1;
+					sconst_2;
+					aload 5;
+					sconst_0;
+					aload 5;
+					arraylength;
+					invokevirtual 11;		// init(Ljavacard/security/Key;B[BSS)V
+					sload 4;
+					newarray 11;
+					astore 8;
+				L10:	aload 7;
+					aload_3;
+					sconst_5;
+					sload 4;
+					aload 8;
+					sconst_0;
+					invokevirtual 12;		// doFinal([BSS[BS)S
+					pop;
+					aload 5;
+					sconst_0;
+					aload_3;
+					sconst_0;
+					bspush 16;
+					invokestatic 13;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					pop;
+					aload 8;
+					sconst_0;
+					aload_3;
+					bspush 16;
+					sload 4;
+					invokestatic 13;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					pop;
+					aload_0;
+					sconst_0;
+					bspush 16;
+					sload 4;
+					sadd;
+					invokevirtual 14;		// setOutgoingAndSend(SS)V
+					return;
+		}
+
+		.method public static setupPin(Ljavacard/framework/OwnerPIN;)V 4 {
+			.stack 4;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/OwnerPIN;	1.9;
+
+				L0:	sconst_4;
+					newarray 11;
+					dup;
+					sconst_0;
+					sconst_1;
+					bastore;
+					dup;
+					sconst_1;
+					sconst_2;
+					bastore;
+					dup;
+					sconst_2;
+					sconst_3;
+					bastore;
+					dup;
+					sconst_3;
+					sconst_4;
+					bastore;
+					astore_1;
+				L1:	aload_0;
+					aload_1;
+					sconst_0;
+					sconst_4;
+					invokevirtual 7;		// update([BSB)V
+					return;
+		}
+
+		.method public static setupKey(Ljavacard/security/AESKey;)V 5 {
+			.stack 4;
+			.locals 1;
+
+			.descriptor	Ljavacard/security/AESKey;	2.20;
+
+				L0:	bspush 16;
+					newarray 11;
+					dup;
+					sconst_1;
+					sconst_1;
+					bastore;
+					dup;
+					sconst_2;
+					sconst_2;
+					bastore;
+					dup;
+					sconst_3;
+					sconst_3;
+					bastore;
+					dup;
+					sconst_4;
+					sconst_4;
+					bastore;
+					dup;
+					sconst_5;
+					sconst_5;
+					bastore;
+					dup;
+					bspush 6;
+					bspush 6;
+					bastore;
+					dup;
+					bspush 7;
+					bspush 7;
+					bastore;
+					dup;
+					bspush 8;
+					bspush 8;
+					bastore;
+					dup;
+					bspush 9;
+					bspush 9;
+					bastore;
+					dup;
+					bspush 10;
+					bspush 10;
+					bastore;
+					dup;
+					bspush 11;
+					bspush 11;
+					bastore;
+					dup;
+					bspush 12;
+					bspush 12;
+					bastore;
+					dup;
+					bspush 13;
+					bspush 13;
+					bastore;
+					dup;
+					bspush 14;
+					bspush 14;
+					bastore;
+					dup;
+					bspush 15;
+					bspush 15;
+					bastore;
+					astore_1;
+				L1:	aload_0;
+					aload_1;
+					sconst_0;
+					invokeinterface 3 15 4;		// javacard/security/AESKey
+					return;
+		}
+
+	}
+
+}

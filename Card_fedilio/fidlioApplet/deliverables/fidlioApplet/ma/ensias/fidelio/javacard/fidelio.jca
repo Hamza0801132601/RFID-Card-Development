@@ -1,0 +1,163 @@
+// converted by version  [v24.1]
+// on Tue Jan 14 12:37:08 WEST 2025
+
+.package ma/ensias/fidelio {
+	.aid 0x20:0x20:0x20:0x20:0x20:0x20;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+		0x21:0x21:0x21:0x21:0x21:0x21 1.0;		//ma/ensias/metier/lib
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+	}
+
+	.applet {
+		0x20:0x20:0x20:0x20:0x20:0x0 FidelioApplet;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef short FidelioApplet/solde;
+		// 1
+		.classRef FidelioApplet;
+		// 2
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 3
+		staticMethodRef FidelioApplet/<init>([BSB)V;
+		// 4
+		virtualMethodRef 0.3.2([BSB)V;		// register([BSB)V
+		// 5
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+		// 6
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 7
+		staticMethodRef 1.0.1(Ljavacard/framework/APDU;S)V;		// ma/ensias/metier/lib/MetierLib.getSolde(Ljavacard/framework/APDU;S)V
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 8
+		staticMethodRef 1.0.2(Ljavacard/framework/APDU;S)S;		// ma/ensias/metier/lib/MetierLib.addPoints(Ljavacard/framework/APDU;S)S
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 9
+		staticMethodRef 1.0.3(Ljavacard/framework/APDU;S)S;		// ma/ensias/metier/lib/MetierLib.deductPoints(Ljavacard/framework/APDU;S)S
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 10
+		staticMethodRef 1.0.4(Ljavacard/framework/APDU;)S;		// ma/ensias/metier/lib/MetierLib.init(Ljavacard/framework/APDU;)S
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+		// 11
+		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+	}
+
+	.class public FidelioApplet 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private short solde 0;		// S
+			private static final byte INS_GET = 10;		// B
+			private static final byte INS_ADD = 11;		// B
+			private static final byte INS_SUB = 12;		// B
+			private static final byte INS_INIT = 13;		// B
+		}
+
+		.publicMethodTable 7 8 {
+			equals(Ljava/lang/Object;)Z 0;
+			register()V 1;
+			register([BSB)V 2;
+			selectingApplet()Z 3;
+			deselect()V 4;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5;
+			select()Z 6;
+			process(Ljavacard/framework/APDU;)V 7;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method public static install([BSB)V 0 {
+			.stack 4;
+			.locals 0;
+
+				L0:	new 1;		// ma/ensias/fidelio/FidelioApplet
+					aload_0;
+					sload_1;
+					sload_2;
+					invokespecial 3;		// ma/ensias/fidelio/FidelioApplet.<init>([BSB)V
+					return;
+		}
+
+		.method protected <init>([BSB)V 1 {
+			.stack 5;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 2;		// javacard/framework/Applet.<init>()V
+					sconst_0;
+					putfield_s_this 0;		// short ma/ensias/fidelio/FidelioApplet.solde
+					aload_0;
+					aload_1;
+					sload_2;
+					sconst_1;
+					sadd;
+					aload_1;
+					sload_2;
+					baload;
+					invokevirtual 4;		// register([BSB)V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 3;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_0;
+					invokevirtual 5;		// selectingApplet()Z
+					ifeq L2;
+				L1:	return;
+				L2:	aload_1;
+					invokevirtual 6;		// getBuffer()[B
+					astore_2;
+				L3:	aload_2;
+					sconst_0;
+					baload;
+					ifne L10;
+				L4:	aload_2;
+					sconst_1;
+					baload;
+					sspush 255;
+					sand;
+					stableswitch L9 10 13 L5 L6 L7 L8;
+				L5:	aload_1;
+					getfield_s_this 0;		// short ma/ensias/fidelio/FidelioApplet.solde
+					invokestatic 7;		// ma/ensias/metier/lib/MetierLib.getSolde(Ljavacard/framework/APDU;S)V
+					goto L11;
+				L6:	aload_0;
+					aload_1;
+					getfield_s_this 0;		// short ma/ensias/fidelio/FidelioApplet.solde
+					invokestatic 8;		// ma/ensias/metier/lib/MetierLib.addPoints(Ljavacard/framework/APDU;S)S
+					putfield_s 0;		// short ma/ensias/fidelio/FidelioApplet.solde
+					goto L11;
+				L7:	aload_0;
+					aload_1;
+					getfield_s_this 0;		// short ma/ensias/fidelio/FidelioApplet.solde
+					invokestatic 9;		// ma/ensias/metier/lib/MetierLib.deductPoints(Ljavacard/framework/APDU;S)S
+					putfield_s 0;		// short ma/ensias/fidelio/FidelioApplet.solde
+					goto L11;
+				L8:	aload_0;
+					aload_1;
+					invokestatic 10;		// ma/ensias/metier/lib/MetierLib.init(Ljavacard/framework/APDU;)S
+					putfield_s 0;		// short ma/ensias/fidelio/FidelioApplet.solde
+					goto L11;
+				L9:	sspush 27904;
+					invokestatic 11;		// javacard/framework/ISOException.throwIt(S)V
+					goto L11;
+				L10:	sspush 28160;
+					invokestatic 11;		// javacard/framework/ISOException.throwIt(S)V
+				L11:	return;
+		}
+
+	}
+
+}

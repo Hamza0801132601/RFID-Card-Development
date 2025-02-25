@@ -1,0 +1,230 @@
+// converted by version  [v24.1]
+// on Wed Jan 15 21:16:12 WEST 2025
+
+.package ma/ensias/access {
+	.aid 0x40:0x40:0x40:0x40:0x40:0x40;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x2 1.8;		//javacard/security
+		0x41:0x41:0x41:0x41:0x41:0x41 1.0;		//ma/ensias/metier/security
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+	}
+
+	.applet {
+		0x40:0x40:0x40:0x40:0x40 AccessApplet;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef 0.9 AccessApplet/pin;
+		// 1
+		instanceFieldRef 1.20 AccessApplet/privateKey;
+		// 2
+		instanceFieldRef boolean AccessApplet/isAuthenticated;
+		// 3
+		instanceFieldRef short AccessApplet/sessionTimer;
+		// 4
+		staticMethodRef 2.0.4(Ljavacard/framework/OwnerPIN;)V;		// ma/ensias/metier/security/AccessMetier.setupPin(Ljavacard/framework/OwnerPIN;)V
+			.descriptor	Ljavacard/framework/OwnerPIN;	0.9;
+
+		// 5
+		staticMethodRef 1.13.0(BSZ)Ljavacard/security/Key;;		// javacard/security/KeyBuilder.buildKey(BSZ)Ljavacard/security/Key;
+			.descriptor	Ljavacard/security/Key;	1.0;
+
+		// 6
+		.classRef 1.20;		// javacard/security/AESKey
+		// 7
+		.classRef 0.9;		// javacard/framework/OwnerPIN
+		// 8
+		staticMethodRef 2.0.5(Ljavacard/security/AESKey;)V;		// ma/ensias/metier/security/AccessMetier.setupKey(Ljavacard/security/AESKey;)V
+			.descriptor	Ljavacard/security/AESKey;	1.20;
+
+		// 9
+		staticMethodRef 0.9.0(BB)V;		// javacard/framework/OwnerPIN.<init>(BB)V
+		// 10
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 11
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 12
+		.classRef AccessApplet;
+		// 13
+		staticMethodRef AccessApplet/<init>()V;
+		// 14
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 15
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+		// 16
+		staticMethodRef AccessApplet/resetSession()V;
+		// 17
+		staticMethodRef 0.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+		// 18
+		staticMethodRef 2.0.1(Ljavacard/framework/APDU;Ljavacard/framework/OwnerPIN;)Z;		// ma/ensias/metier/security/AccessMetier.validatePin(Ljavacard/framework/APDU;Ljavacard/framework/OwnerPIN;)Z
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+			.descriptor	Ljavacard/framework/OwnerPIN;	0.9;
+
+		// 19
+		staticMethodRef 2.0.2(Ljavacard/framework/APDU;Ljavacard/framework/OwnerPIN;)V;		// ma/ensias/metier/security/AccessMetier.updatePin(Ljavacard/framework/APDU;Ljavacard/framework/OwnerPIN;)V
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+			.descriptor	Ljavacard/framework/OwnerPIN;	0.9;
+
+		// 20
+		staticMethodRef 2.0.3(Ljavacard/framework/APDU;Ljavacard/security/AESKey;Z)V;		// ma/ensias/metier/security/AccessMetier.authorizeAccess(Ljavacard/framework/APDU;Ljavacard/security/AESKey;Z)V
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+			.descriptor	Ljavacard/security/AESKey;	1.20;
+
+	}
+
+	.class public AccessApplet 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private 0.9 pin 0;		// Ljavacard/framework/OwnerPIN;
+			private 1.20 privateKey 1;		// Ljavacard/security/AESKey;
+			private boolean isAuthenticated 2;		// Z
+			private short sessionTimer 3;		// S
+			private static final byte INS_VERIFY_PIN = 32;		// B
+			private static final byte INS_UPDATE_PIN = 33;		// B
+			private static final byte INS_VALIDATE_ACCESS = 34;		// B
+			private static final short SESSION_TIMEOUT = 300;		// S
+		}
+
+		.publicMethodTable 7 8 {
+			equals(Ljava/lang/Object;)Z 0;
+			register()V 1;
+			register([BSB)V 2;
+			selectingApplet()Z 3;
+			deselect()V 4;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5;
+			select()Z 6;
+			process(Ljavacard/framework/APDU;)V 7;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method private <init>()V {
+			.stack 5;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 10;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					new 7;		// javacard/framework/OwnerPIN
+					dup;
+					sconst_3;
+					sconst_4;
+					invokespecial 9;		// javacard/framework/OwnerPIN.<init>(BB)V
+					putfield_a 0;		// reference ma/ensias/access/AccessApplet.pin
+					getfield_a_this 0;		// reference ma/ensias/access/AccessApplet.pin
+					invokestatic 4;		// ma/ensias/metier/security/AccessMetier.setupPin(Ljavacard/framework/OwnerPIN;)V
+					aload_0;
+					bspush 15;
+					sspush 128;
+					sconst_0;
+					invokestatic 5;		// javacard/security/KeyBuilder.buildKey(BSZ)Ljavacard/security/Key;
+					checkcast 0 6;		// T_CLASSORINTERFACE javacard/security/AESKey
+					putfield_a 1;		// reference ma/ensias/access/AccessApplet.privateKey
+					getfield_a_this 1;		// reference ma/ensias/access/AccessApplet.privateKey
+					invokestatic 8;		// ma/ensias/metier/security/AccessMetier.setupKey(Ljavacard/security/AESKey;)V
+					sconst_0;
+					putfield_b_this 2;		// boolean ma/ensias/access/AccessApplet.isAuthenticated
+					sconst_0;
+					putfield_s_this 3;		// short ma/ensias/access/AccessApplet.sessionTimer
+					aload_0;
+					invokevirtual 11;		// register()V
+					return;
+		}
+
+		.method public static install([BSB)V 0 {
+			.stack 1;
+			.locals 0;
+
+				L0:	new 12;		// ma/ensias/access/AccessApplet
+					invokespecial 13;		// ma/ensias/access/AccessApplet.<init>()V
+					return;
+		}
+
+		.method private resetSession()V {
+			.stack 2;
+			.locals 0;
+
+				L0:	sconst_0;
+					putfield_b_this 2;		// boolean ma/ensias/access/AccessApplet.isAuthenticated
+					sconst_0;
+					putfield_s_this 3;		// short ma/ensias/access/AccessApplet.sessionTimer
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 3;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 14;		// getBuffer()[B
+					astore_2;
+				L1:	aload_0;
+					invokevirtual 15;		// selectingApplet()Z
+					ifeq L3;
+				L2:	aload_0;
+					invokespecial 16;		// ma/ensias/access/AccessApplet.resetSession()V
+					return;
+				L3:	aload_2;
+					sconst_0;
+					baload;
+					ifeq L5;
+				L4:	sspush 28160;
+					invokestatic 17;		// javacard/framework/ISOException.throwIt(S)V
+				L5:	aload_2;
+					sconst_1;
+					baload;
+					stableswitch L12 32 34 L6 L8 L11;
+				L6:	aload_0;
+					aload_1;
+					getfield_a_this 0;		// reference ma/ensias/access/AccessApplet.pin
+					invokestatic 18;		// ma/ensias/metier/security/AccessMetier.validatePin(Ljavacard/framework/APDU;Ljavacard/framework/OwnerPIN;)Z
+					putfield_b 2;		// boolean ma/ensias/access/AccessApplet.isAuthenticated
+					getfield_b_this 2;		// boolean ma/ensias/access/AccessApplet.isAuthenticated
+					ifeq L13;
+				L7:	sspush 300;
+					putfield_s_this 3;		// short ma/ensias/access/AccessApplet.sessionTimer
+					goto L13;
+				L8:	getfield_b_this 2;		// boolean ma/ensias/access/AccessApplet.isAuthenticated
+					ifne L10;
+				L9:	sspush 27010;
+					invokestatic 17;		// javacard/framework/ISOException.throwIt(S)V
+				L10:	aload_1;
+					getfield_a_this 0;		// reference ma/ensias/access/AccessApplet.pin
+					invokestatic 19;		// ma/ensias/metier/security/AccessMetier.updatePin(Ljavacard/framework/APDU;Ljavacard/framework/OwnerPIN;)V
+					aload_0;
+					invokespecial 16;		// ma/ensias/access/AccessApplet.resetSession()V
+					goto L13;
+				L11:	aload_1;
+					getfield_a_this 1;		// reference ma/ensias/access/AccessApplet.privateKey
+					getfield_b_this 2;		// boolean ma/ensias/access/AccessApplet.isAuthenticated
+					invokestatic 20;		// ma/ensias/metier/security/AccessMetier.authorizeAccess(Ljavacard/framework/APDU;Ljavacard/security/AESKey;Z)V
+					goto L13;
+				L12:	sspush 27904;
+					invokestatic 17;		// javacard/framework/ISOException.throwIt(S)V
+				L13:	getfield_b_this 2;		// boolean ma/ensias/access/AccessApplet.isAuthenticated
+					ifeq L17;
+				L14:	getfield_s_this 3;		// short ma/ensias/access/AccessApplet.sessionTimer
+					ifle L17;
+				L15:	aload_0;
+					dup;
+					getfield_s 3;		// short ma/ensias/access/AccessApplet.sessionTimer
+					sconst_1;
+					ssub;
+					putfield_s 3;		// short ma/ensias/access/AccessApplet.sessionTimer
+					getfield_s_this 3;		// short ma/ensias/access/AccessApplet.sessionTimer
+					ifne L17;
+				L16:	aload_0;
+					invokespecial 16;		// ma/ensias/access/AccessApplet.resetSession()V
+				L17:	return;
+		}
+
+	}
+
+}

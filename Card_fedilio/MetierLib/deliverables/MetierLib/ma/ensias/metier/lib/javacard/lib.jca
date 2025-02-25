@@ -1,0 +1,128 @@
+// converted by version  [v24.1]
+// on Wed Jan 15 16:31:53 WEST 2025
+
+.package ma/ensias/metier/lib {
+	.aid 0x21:0x21:0x21:0x21:0x21:0x21;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+	}
+
+	.constantPool {
+		// 0
+		staticMethodRef 0.0.0()V;		// java/lang/Object.<init>()V
+		// 1
+		virtualMethodRef 1.10.1()[B;		// getBuffer()[B
+		// 2
+		staticMethodRef 1.16.6([BSS)S;		// javacard/framework/Util.setShort([BSS)S
+		// 3
+		virtualMethodRef 1.10.8(SS)V;		// setOutgoingAndSend(SS)V
+		// 4
+		staticMethodRef 1.16.4([BS)S;		// javacard/framework/Util.getShort([BS)S
+		// 5
+		staticMethodRef 1.7.1(S)V;		// javacard/framework/ISOException.throwIt(S)V
+	}
+
+	.class public MetierLib 0 extends 0.0 {		// extends java/lang/Object
+
+		.publicMethodTable 1 1 {
+			equals(Ljava/lang/Object;)Z 0;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method public <init>()V 0 {
+			.stack 1;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 0;		// java/lang/Object.<init>()V
+					return;
+		}
+
+		.method public static getSolde(Ljavacard/framework/APDU;S)V 1 {
+			.stack 3;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+
+				L0:	aload_0;
+					invokevirtual 1;		// getBuffer()[B
+					astore_2;
+				L1:	aload_2;
+					sconst_0;
+					sload_1;
+					invokestatic 2;		// javacard/framework/Util.setShort([BSS)S
+					pop;
+					aload_0;
+					sconst_0;
+					sconst_2;
+					invokevirtual 3;		// setOutgoingAndSend(SS)V
+					return;
+		}
+
+		.method public static addPoints(Ljavacard/framework/APDU;S)S 2 {
+			.stack 3;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+
+				L0:	aload_0;
+					invokevirtual 1;		// getBuffer()[B
+					astore_2;
+				L1:	sload_1;
+					aload_2;
+					sconst_5;
+					invokestatic 4;		// javacard/framework/Util.getShort([BS)S
+					sadd;
+					sreturn;
+		}
+
+		.method public static deductPoints(Ljavacard/framework/APDU;S)S 3 {
+			.stack 2;
+			.locals 2;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+
+				L0:	aload_0;
+					invokevirtual 1;		// getBuffer()[B
+					astore_2;
+				L1:	aload_2;
+					sconst_5;
+					invokestatic 4;		// javacard/framework/Util.getShort([BS)S
+					sstore_3;
+				L2:	sload_1;
+					sload_3;
+					if_scmplt L4;
+				L3:	sload_1;
+					sload_3;
+					ssub;
+					sstore_1;
+					goto L5;
+				L4:	sspush 27012;
+					invokestatic 5;		// javacard/framework/ISOException.throwIt(S)V
+				L5:	sload_1;
+					sreturn;
+		}
+
+		.method public static init(Ljavacard/framework/APDU;)S 4 {
+			.stack 2;
+			.locals 1;
+
+			.descriptor	Ljavacard/framework/APDU;	1.10;
+
+				L0:	aload_0;
+					invokevirtual 1;		// getBuffer()[B
+					astore_1;
+				L1:	aload_1;
+					sconst_5;
+					invokestatic 4;		// javacard/framework/Util.getShort([BS)S
+					sreturn;
+		}
+
+	}
+
+}

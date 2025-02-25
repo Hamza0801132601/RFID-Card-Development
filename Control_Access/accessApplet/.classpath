@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path=".gen">
+		<attributes>
+			<attribute name="ignore_optional_problems" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="JC_TOOLS_HOME/lib/api_classic-3.2.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:C:\Users\asus\Desktop\JC_SIMULATOR\docs\api"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="JC_TOOLS_HOME/lib/api_classic_annotations-3.2.0.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AccessMetier"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

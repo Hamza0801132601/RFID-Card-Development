@@ -1,0 +1,151 @@
+// converted by version  [v24.1]
+// on Sun Jan 12 21:16:11 WEST 2025
+
+.package com/oracle/jcclassic/samples/helloworld {
+	.aid 0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1;
+	.version 1.0;
+
+	.imports {
+		0xA0:0x0:0x0:0x0:0x62:0x1:0x1 1.9;		//javacard/framework
+		0xA0:0x0:0x0:0x0:0x62:0x0:0x1 1.0;		//java/lang
+	}
+
+	.applet {
+		0xA0:0x0:0x0:0x0:0x62:0x3:0x1:0xC:0x1:0x1 HelloWorld;
+	}
+
+	.constantPool {
+		// 0
+		instanceFieldRef byte[] HelloWorld/echoBytes;
+		// 1
+		staticMethodRef 0.3.0()V;		// javacard/framework/Applet.<init>()V
+		// 2
+		virtualMethodRef 0.3.1()V;		// register()V
+		// 3
+		.classRef HelloWorld;
+		// 4
+		staticMethodRef HelloWorld/<init>()V;
+		// 5
+		virtualMethodRef 0.10.1()[B;		// getBuffer()[B
+		// 6
+		virtualMethodRef 0.3.3()Z;		// selectingApplet()Z
+		// 7
+		virtualMethodRef 0.10.6()S;		// setIncomingAndReceive()S
+		// 8
+		virtualMethodRef 0.10.7()S;		// setOutgoing()S
+		// 9
+		virtualMethodRef 0.10.9(S)V;		// setOutgoingLength(S)V
+		// 10
+		virtualMethodRef 0.10.4(SS)V;		// sendBytes(SS)V
+		// 11
+		virtualMethodRef 0.10.5([BSS)V;		// sendBytesLong([BSS)V
+		// 12
+		staticMethodRef 0.16.2([BS[BSS)S;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+		// 13
+		virtualMethodRef 0.10.3(S)S;		// receiveBytes(S)S
+	}
+
+	.class public HelloWorld 0 extends 0.3 {		// extends javacard/framework/Applet
+
+		.fields {
+			private byte[] echoBytes 0;		// [B
+			private static final short LENGTH_ECHO_BYTES = 256;		// S
+		}
+
+		.publicMethodTable 7 8 {
+			equals(Ljava/lang/Object;)Z 0;
+			register()V 1;
+			register([BSB)V 2;
+			selectingApplet()Z 3;
+			deselect()V 4;
+			getShareableInterfaceObject(Ljavacard/framework/AID;B)Ljavacard/framework/Shareable; 5;
+			select()Z 6;
+			process(Ljavacard/framework/APDU;)V 7;
+		}
+
+		.packageMethodTable 0 {
+		}
+
+		.method protected <init>()V 0 {
+			.stack 2;
+			.locals 0;
+
+				L0:	aload_0;
+					invokespecial 1;		// javacard/framework/Applet.<init>()V
+					aload_0;
+					sspush 256;
+					newarray 11;
+					putfield_a 0;		// reference com/oracle/jcclassic/samples/helloworld/HelloWorld.echoBytes
+					aload_0;
+					invokevirtual 2;		// register()V
+					return;
+		}
+
+		.method public static install([BSB)V 1 {
+			.stack 1;
+			.locals 0;
+
+				L0:	new 3;		// com/oracle/jcclassic/samples/helloworld/HelloWorld
+					invokespecial 4;		// com/oracle/jcclassic/samples/helloworld/HelloWorld.<init>()V
+					return;
+		}
+
+		.method public process(Ljavacard/framework/APDU;)V 7 {
+			.stack 5;
+			.locals 3;
+
+			.descriptor	Ljavacard/framework/APDU;	0.10;
+
+				L0:	aload_1;
+					invokevirtual 5;		// getBuffer()[B
+					astore_2;
+				L1:	aload_0;
+					invokevirtual 6;		// selectingApplet()Z
+					ifeq L3;
+				L2:	return;
+				L3:	aload_1;
+					invokevirtual 7;		// setIncomingAndReceive()S
+					sstore_3;
+				L4:	sconst_0;
+					sstore 4;
+				L5:	goto L7;
+				L6:	aload_2;
+					sconst_5;
+					getfield_a_this 0;		// reference com/oracle/jcclassic/samples/helloworld/HelloWorld.echoBytes
+					sload 4;
+					sload_3;
+					invokestatic 12;		// javacard/framework/Util.arrayCopyNonAtomic([BS[BSS)S
+					pop;
+					sload 4;
+					sload_3;
+					sadd;
+					sstore 4;
+					aload_1;
+					sconst_5;
+					invokevirtual 13;		// receiveBytes(S)S
+					sstore_3;
+				L7:	sload_3;
+					ifgt L6;
+				L8:	aload_1;
+					invokevirtual 8;		// setOutgoing()S
+					pop;
+					aload_1;
+					sload 4;
+					sconst_5;
+					sadd;
+					invokevirtual 9;		// setOutgoingLength(S)V
+					aload_1;
+					sconst_0;
+					sconst_5;
+					invokevirtual 10;		// sendBytes(SS)V
+					aload_1;
+					getfield_a_this 0;		// reference com/oracle/jcclassic/samples/helloworld/HelloWorld.echoBytes
+					sconst_0;
+					sload 4;
+					invokevirtual 11;		// sendBytesLong([BSS)V
+					return;
+		}
+
+	}
+
+}
